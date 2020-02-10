@@ -1,4 +1,7 @@
+import 'package:expense_manager/transaction.dart';
 import 'package:flutter/material.dart';
+
+import './transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,6 +16,26 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+
+  final List<Transaction> transactions = [
+
+    Transaction (
+      id: 't1', 
+      amount: 105.00, 
+      title: 'Food Expenses', 
+      date: DateTime.now()
+      ),
+
+    Transaction (
+      id: 't2', 
+      amount: 250.00, 
+      title: 'Groceries', 
+      date: DateTime.now()
+      ),      
+  ];
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +44,9 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         
-        
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
+
         children: <Widget> [
         // Card(
         //   child: Container(
@@ -38,9 +63,17 @@ class MyHomePage extends StatelessWidget {
             child: Text('CHARTS!'),           //method 2 to do the same....
           ),
         ),
-        Card(
-          child: Text('Lists of texts'),
-        )
+        Column(children: transactions.map((tx) {
+          return Card (
+            child: Row(children: <Widget>[
+                  Container(child: Text(tx.amount.toString(),),),
+                  Column(children: <Widget>[
+                    Text(tx.title),
+                    Text(tx.date.toString(),),
+                  ],),   
+            ],),
+            );
+        }).toList()),
       ],
       ),
     );
