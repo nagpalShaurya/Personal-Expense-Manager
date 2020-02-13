@@ -122,7 +122,6 @@ void _startAddNewTransaction(BuildContext ctx) {
           //   elevation: 5,
           // ),
           Chart(_recentTransactions),
-
           TransactionList(_userTransactions,_deleteTransaction)
 
         ],
