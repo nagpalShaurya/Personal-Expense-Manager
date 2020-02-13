@@ -1,26 +1,49 @@
-import '../models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-final List<Transaction> trans;
+  final List<Transaction> transactions;
+  final Function deleteTx;
+  
+  TransactionList(this.transactions,this.deleteTx);
 
-TransactionList(this.trans);
-
- @override
+  @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
-      child: ListView.builder(
-        itemBuilder: (ctx,index) {
-          return Card (
-                elevation: 4,
-                child: Row(children: <Widget>[
-                      Container (
+      height: 500,
+      child: transactions.isEmpty
+          ? Column(
+              children: <Widget>[
+                Text(
+                  'No transactions added yet!',
+                  style: Theme.of(context).textTheme.title,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                    height: 200,
+                    child: Image.asset(
+                      'assets/fonts/images/waiting.png',
+                      fit: BoxFit.cover,
+                    )),
+              ],
+            )
+          : ListView.builder(
+              itemBuilder: (ctx, index) {
+                return Card(
+                  elevation: 5,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 5,
+                  ),
+                  child: ListTile(
+                    leading: Container (
                         margin: EdgeInsets.symmetric(
-                          vertical:10, 
-                          horizontal: 15,
+                          vertical:5, 
+                          horizontal: 0,
                           ),
                         decoration: BoxDecoration(
                             border: Border.all(
@@ -29,7 +52,7 @@ TransactionList(this.trans);
                             ),
                           ),
                         padding: EdgeInsets.all(10),
-                        child: Text('₹  ' + NumberFormat('#,###.00').format(trans[index].amount),
+                        child: Text('₹  ' + NumberFormat('#,###.00').format(transactions[index].amount),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -38,27 +61,22 @@ TransactionList(this.trans);
                         ),
                         ),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                        Text(
-                          trans[index].title, 
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          ),
-                        Text(
-                          DateFormat('dd/MM/yyyy').add_jm().format(trans[index].date),
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                      ),   
-                ],),
+                    title: Text(
+                      transactions[index].title,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(transactions[index].date),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete), 
+                      color: Colors.deepOrangeAccent,
+                      onPressed: ()=>deleteTx(transactions[index].id)),
+                  ),
                 );
-        },
-        itemCount: trans.length,
-  ),
+              },
+              itemCount: transactions.length,
+            ),
     );
   }
 }
