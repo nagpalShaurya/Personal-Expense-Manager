@@ -31,31 +31,33 @@ class MyHomePage extends StatelessWidget {
         title: Text('Expense Manager'),  
         backgroundColor: Colors.redAccent,
       ),
-      body: Column(
-        
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
+      body: SingleChildScrollView(
+              child: Column(
+          
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
 
-        children: <Widget> [
-        // Card(
-        //   child: Container(
-        //     color: Colors.amber,
-        //     width: double.infinity,        //method 1....
-        //     child: Text('Chart')),
-        //   elevation: 5,
-        // ),
-        Container(
-          width:double.infinity,
-          child: Card(
-            color: Colors.redAccent,
-            elevation:5,
-            child: Text('CHARTS!',style: TextStyle(color: Colors.white),),           //method 2 to do the same....
+          children: <Widget> [
+          // Card(
+          //   child: Container(
+          //     color: Colors.amber,
+          //     width: double.infinity,        //method 1....
+          //     child: Text('Chart')),
+          //   elevation: 5,
+          // ),
+          Container(
+            width:double.infinity,
+            child: Card(
+              color: Colors.redAccent,
+              elevation:5,
+              child: Text('CHARTS!',style: TextStyle(color: Colors.white),),           //method 2 to do the same....
+            ),
           ),
+
+          UserTransactions()
+
+        ],
         ),
-
-        UserTransactions()
-
-      ],
       ),
     );
   }
