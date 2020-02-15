@@ -57,54 +57,61 @@ void _presentDatePicker() {
 }
   @override
   Widget build(BuildContext context) {
-    return Card(
-          elevation: 7,
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                TextField( 
-                  decoration: InputDecoration(labelText: 'Title',
-                  ),
-                  // onChanged: (value) {
-                  //   titleInput = value;
-                  // },
-                  onSubmitted:(_) => _submitData(),
-                  controller: _titlecontroller,
-                  ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'Amount'),
-                  keyboardType: TextInputType.number,
-                  onSubmitted:(_) => _submitData(),
-                  // onChanged: (value) {
-                  //   amountInput = value;
-                  // },                  
-                  controller: _amountcontroller,
-                  ),
+    return SingleChildScrollView(
+          child: Card(
+            elevation: 7,
+            child: Container(
+              padding: EdgeInsets.only(
+                top: 10, 
+                left:10, 
+                right:10, 
+                bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  TextField( 
+                    decoration: InputDecoration(labelText: 'Title',
+                    ),
+                    // onChanged: (value) {
+                    //   titleInput = value;
+                    // },
+                    onSubmitted:(_) => _submitData(),
+                    controller: _titlecontroller,
+                    ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                    keyboardType: TextInputType.number,
+                    onSubmitted:(_) => _submitData(),
+                    // onChanged: (value) {
+                    //   amountInput = value;
+                    // },                  
+                    controller: _amountcontroller,
+                    ),
 
-                  Container(
-                    height: 85,
-                    child: Row(children: <Widget>[
-                      Expanded(child: Text(_selectedDate == null?'No Date Chosen!': 'date chosen: '+DateFormat.yMd().format(_selectedDate))),
-                      FlatButton(
-                        textColor: Colors.redAccent,
-                        onPressed: _presentDatePicker, 
-                        child:Text('Choose Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        ),
-                    ],),
-                  ),
+                    Container(
+                      height: 85,
+                      child: Row(children: <Widget>[
+                        Expanded(child: Text(_selectedDate == null?'No Date Chosen!': 'date chosen: '+DateFormat.yMd().format(_selectedDate))),
+                        FlatButton(
+                          textColor: Colors.redAccent,
+                          onPressed: _presentDatePicker, 
+                          child:Text('Choose Date',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          ),
+                      ],),
+                    ),
 
-                  RaisedButton(
-                    color: Colors.red,
-                    textColor: Colors.white,
-                    onPressed: () => _submitData(), 
-                    child: Text('Add Transaction'))
-              ],
-        ),
+                    RaisedButton(
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      onPressed: () => _submitData(), 
+                      child: Text('Add Transaction'))
+                ],
           ),
-        );
+            ),
+          ),
+    );
   }
 }
