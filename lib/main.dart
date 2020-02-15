@@ -1,12 +1,17 @@
 import 'package:expense_manager/widgets/new_transaction.dart';
 
 import 'package:flutter/material.dart';
+
 import './widgets/transaction_list.dart';
 import './models/transaction.dart';
 import './widgets/chart.dart';
 
 
-void main() => runApp(MyApp());
+void main() {
+
+runApp(MyApp());
+
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -52,6 +57,8 @@ final List<Transaction> _userTransactions = [
     //   date: DateTime.now()
     //   ),      
   ];
+
+bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -123,11 +130,23 @@ void _startAddNewTransaction(BuildContext ctx) {
           //     child: Text('Chart')),
           //   elevation: 5,
           // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+            Text('Show Chart'),
+            Switch(value: _showChart, onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            })
+          ],),
+
+         _showChart ? Container(
+            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
+            child: Chart(_recentTransactions))
+            :
           Container(
-            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.4,
-            child: Chart(_recentTransactions)),
-          Container(
-            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.6,
+            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
             child: TransactionList(_userTransactions,_deleteTransaction))
 
         ],
